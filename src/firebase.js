@@ -37,7 +37,7 @@ async function getSymbols(value) {
 
     const querySnapshot = await getDocs(symbolSnapshot);
     const symbolList = querySnapshot.docs.map((doc) => doc.data());
-
+    console.log("------RESPONSE------", symbolList.length);
     if (value) {
       const flitteredSymbol = symbolList.filter((obj) => {
         if (

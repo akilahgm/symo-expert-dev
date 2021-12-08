@@ -6,7 +6,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
   border: "2px solid #5e5e5e",
   boxShadow: 5,
@@ -69,10 +69,17 @@ export default function SymbolModal(props) {
           </div>
           <div
             className="d-flex flex-column align-items-start mt-3"
-            style={{ width: "100%", background: "#f5faf9", padding: 5 }}
+            style={{
+              width: "100%",
+              background: "#f5faf9",
+              padding: 5,
+              height: 250,
+              overflowX: "hidden",
+              overflowY: "auto",
+            }}
           >
             <table>
-              <tbody>
+              <tbody style={{ width: 300 }}>
                 {symbol.props
                   ? symbol.props.map((prop) => (
                       <tr>

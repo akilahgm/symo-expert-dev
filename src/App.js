@@ -10,7 +10,6 @@ function App() {
   const [symbol, setSymbol] = useState([]);
   if (symbol.length == 0) {
     getSymbols().then((res) => {
-      // localStorage.setItem("symbols", JSON.stringify(res));
       setSymbol(res);
     });
   }
@@ -35,12 +34,12 @@ function App() {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/symo-expert-dev/">
                 Symbol Guide <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">
+              <a class="nav-link" href="/symo-expert-dev/about">
                 Caris S-57 Composer
               </a>
             </li>
@@ -53,14 +52,13 @@ function App() {
               aria-label="Search"
               onChange={(event) => {
                 getSymbols(event.target.value).then((res) => {
-                  // localStorage.setItem("symbols", JSON.stringify(res));
                   setSymbol(res);
                 });
               }}
             />
           </Form>
           <span class="nav-item">
-            <a class="nav-link" href="/about">
+            <a class="nav-link" href="/symo-expert-dev/about">
               S-57 ENC Object Catalogue
             </a>
           </span>
@@ -70,11 +68,11 @@ function App() {
         <Switch>
           {/* <PublicRoute isRestricted={true} path="/login" component={Login} /> */}
           <Route
-            path="/"
+            path="/symo-expert-dev/"
             exact={true}
             render={(props) => <Home {...props} symbols={symbol} />}
           />
-          <Route path="/about" exact={true} component={About} />
+          <Route path="/symo-expert-dev/about" exact={true} component={About} />
         </Switch>
       </BrowserRouter>
     </div>
