@@ -1,23 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import { getSymbols } from "./firebase";
+import { FormControl, Form, Button } from "react-bootstrap";
 
 function App() {
+  getSymbols().then((res) => {
+    localStorage.setItem("symbols", JSON.stringify(res));
+  });
+  const [value, setValue] = useState('');
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          SYMO EXPERT
         </a>
-      </header>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">
+                Symbol Guide <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">
+                Caris S-57 Composer
+              </a>
+            </li>
+          </ul>
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+              onChange={(event) => setValue(event.target.value)}
+            />
+          </Form>
+          <span class="nav-item">
+            <a class="nav-link" href="/about">
+              S-57 ENC Object Catalogue
+            </a>
+          </span>
+        </div>
+      </nav>
+      <BrowserRouter>
+        <Switch>
+          {/* <PublicRoute isRestricted={true} path="/login" component={Login} /> */}
+          <Route
+            path="/"
+            exact={true}
+            render={(props) => <Home {...props} value={value} />}
+          />
+          <Route path="/about" exact={true} component={About} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
