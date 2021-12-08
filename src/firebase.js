@@ -1,5 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import {
+  collection,
+  doc,
+  setDoc,
+  getFirestore,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1zwjxoGy8Y17prH7bAsBo9IVvEeD01Z8",
@@ -16,11 +25,30 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Get a list of cities from your database
-async function getSymbols() {
+async function getSymbols(value) {
   try {
+    console.log("------STARTING------");
     const symbolCol = collection(db, "symbols");
-    const symbolSnapshot = await getDocs(symbolCol);
-    const symbolList = symbolSnapshot.docs.map((doc) => doc.data());
+    const symbolSnapshot = query(
+      symbolCol,
+      orderBy("name", "asc"),
+      limit(value ? 300 : 20)
+    );
+
+    const querySnapshot = await getDocs(symbolSnapshot);
+    const symbolList = querySnapshot.docs.map((doc) => doc.data());
+
+    if (value) {
+      const flitteredSymbol = symbolList.filter((obj) => {
+        if (
+          obj.name &&
+          obj.name.toLowerCase().trim().startsWith(value.toLowerCase())
+        ) {
+          return obj;
+        }
+      });
+      return flitteredSymbol;
+    }
     return symbolList;
   } catch (error) {
     console.log("**********ERROR*********", error);

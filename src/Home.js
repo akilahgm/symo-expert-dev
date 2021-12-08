@@ -2,36 +2,24 @@ import React, { useState, useEffect } from "react";
 import SymbolCard from "./components/symbolCard";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import SymbolModal from './components/symbolModal'
-
-const symbolsStr = localStorage.getItem("symbols");
-const symbolObj = symbolsStr ? JSON.parse(symbolsStr) : [];
-
-
-
-
+import SymbolModal from "./components/symbolModal";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 export default function Home(props) {
-  const { value } = props;
-  const [symbols, setSymbols] = useState(symbolObj);
+  const { symbols } = props;
+
   const [selectedSymbol, setSelectedSymbol] = useState(undefined);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  if (value.length > 0) {
-    const flitteredSymbol = symbolObj.filter((obj) => {
-      if (obj.name && obj.name.toLowerCase().startsWith(value.toLowerCase())) {
-        return obj;
-      }
-    });
-    if (!arraysEqual(flitteredSymbol, symbols)) {
-      setSymbols(flitteredSymbol);
-    }
-  }
   const _renderModal = () => {
     if (selectedSymbol) {
       return (
-        <SymbolModal open={open} symbol={selectedSymbol} handleClose={handleClose}/>
+        <SymbolModal
+          open={open}
+          symbol={selectedSymbol}
+          handleClose={handleClose}
+        />
       );
     }
   };
@@ -51,20 +39,26 @@ export default function Home(props) {
         spacing={1}
         className="m-4"
       >
-        {symbols.map((symbol) => (
-          <SymbolCard symbol={symbol} onClick={onClick} />
-        ))}
+        {symbols.length > 0 ? (
+          symbols.map((symbol) => (
+            <SymbolCard symbol={symbol} onClick={onClick} />
+          ))
+        ) : (
+          <>
+            {[...Array(10)].map((symbol) => (
+              <Skeleton
+                count={1}
+                height={220}
+                width={220}
+                direction={"ltr"}
+                style={{ margin: 10 }}
+              />
+            ))}
+          </>
+        )}
+
+        {/* <Skeleton count={10} height={200} width={200} direction={"ltr"} /> */}
       </Grid>
     </Box>
   );
-}
-
-function arraysEqual(a, b) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
 }

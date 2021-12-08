@@ -10,10 +10,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SymbolCard(props) {
-  console.log("=======", props);
-  const { symbol,onClick } = props;
+  const { symbol, onClick } = props;
   return (
-    <Grid item onClick={()=>onClick(symbol)}>
+    <Grid item onClick={() => onClick(symbol)}>
       <Item style={{ background: "#faf5f5", margin: 4 }}>
         <div
           className="d-flex flex-column align-items-center"
@@ -23,11 +22,11 @@ export default function SymbolCard(props) {
             style={{
               height: 140,
               background: "#fafafa",
-              width:180,
+              width: 180,
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center",
-              overflow:"hidden"
+              overflow: "hidden",
             }}
           >
             <img
@@ -36,7 +35,9 @@ export default function SymbolCard(props) {
             />
           </div>
           <div className="d-flex mt-2">
-            <p style={{fontWeight:"bold"}} className="m-0">{symbol.name} </p>
+            <p style={{ fontWeight: "bold" }} className="m-0">
+              {symbol.name}{" "}
+            </p>
             <p className="m-0">({symbol.acronym})</p>
           </div>
           <div className="mt-0">

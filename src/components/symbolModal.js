@@ -67,17 +67,26 @@ export default function SymbolModal(props) {
           <div>
             <p className="m-0">{symbol.description}</p>
           </div>
-          <div className="d-flex flex-column align-items-start mt-3" style={{width:"100%",background:"#f5faf9",padding:5}}>
+          <div
+            className="d-flex flex-column align-items-start mt-3"
+            style={{ width: "100%", background: "#f5faf9", padding: 5 }}
+          >
             <table>
               <tbody>
-                  {symbol.props?symbol.props.map(prop=>(
+                {symbol.props
+                  ? symbol.props.map((prop) => (
                       <tr>
-                      <td style={{fontWeight:"bold",color:"#5c5c5c"}}>{prop.name}</td>
-                      <td style={{fontWeight:"bold",paddingLeft:2}}> : </td>
-                      <td style={{paddingLeft:4}}>{prop.value}</td>
-                    </tr>
-                  )):null}
-                
+                        <td style={{ fontWeight: "bold", color: "#5c5c5c" }}>
+                          {prop.name}
+                        </td>
+                        <td style={{ fontWeight: "bold", paddingLeft: 2 }}>
+                          {" "}
+                          :{" "}
+                        </td>
+                        <td style={{ paddingLeft: 4 }}>{prop.value}</td>
+                      </tr>
+                    ))
+                  : null}
               </tbody>
             </table>
           </div>

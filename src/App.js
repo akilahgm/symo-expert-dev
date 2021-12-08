@@ -7,10 +7,13 @@ import { getSymbols } from "./firebase";
 import { FormControl, Form, Button } from "react-bootstrap";
 
 function App() {
-  getSymbols().then((res) => {
-    localStorage.setItem("symbols", JSON.stringify(res));
-  });
-  const [value, setValue] = useState('');
+  const [symbol, setSymbol] = useState([]);
+  if (symbol.length == 0) {
+    getSymbols().then((res) => {
+      // localStorage.setItem("symbols", JSON.stringify(res));
+      setSymbol(res);
+    });
+  }
   return (
     <div className="App">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,7 +51,12 @@ function App() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
-              onChange={(event) => setValue(event.target.value)}
+              onChange={(event) => {
+                getSymbols(event.target.value).then((res) => {
+                  // localStorage.setItem("symbols", JSON.stringify(res));
+                  setSymbol(res);
+                });
+              }}
             />
           </Form>
           <span class="nav-item">
@@ -64,7 +72,7 @@ function App() {
           <Route
             path="/"
             exact={true}
-            render={(props) => <Home {...props} value={value} />}
+            render={(props) => <Home {...props} symbols={symbol} />}
           />
           <Route path="/about" exact={true} component={About} />
         </Switch>
