@@ -13,7 +13,7 @@ export default function SymbolCard(props) {
   const { symbol, onClick } = props;
   return (
     <Grid item onClick={() => onClick(symbol)}>
-      <Item style={{ background: "#faf5f5", margin: 4 }}>
+      <Item style={{ background: "#abeaff", margin: 4 }}>
         <div
           className="d-flex flex-column align-items-center"
           style={{ width: 200, height: 200 }}

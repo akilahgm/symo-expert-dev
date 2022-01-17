@@ -5,6 +5,7 @@ import Home from "./Home";
 import About from "./About";
 import { getSymbols } from "./firebase";
 import { FormControl, Form, Button } from "react-bootstrap";
+import LOGO from "./symo-logo.png";
 
 function App() {
   const [symbol, setSymbol] = useState([]);
@@ -14,11 +15,16 @@ function App() {
     });
   }
   return (
-    <div className="App">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          SYMO EXPERT
-        </a>
+    <div className="App" style={{ background: "#f7fdff" }}>
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style={{ background: "#34b0d9" }}
+      >
+        <img
+          src={LOGO}
+          style={{ width: 50, height: "auto", margin: 1, marginRight: 5 }}
+        />
+        <a class="navbar-brand">SYMO EXPERT</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -58,7 +64,12 @@ function App() {
             />
           </Form>
           <span class="nav-item">
-            <a class="nav-link" href="/symo-expert-dev/about">
+            <a
+              class="nav-link"
+              href="https://www.teledynecaris.com/s-57/frames/S57catalog.htm"
+              target="_blank"
+              style={{ color: "black", fontWeight: "bold" }}
+            >
               S-57 ENC Object Catalogue
             </a>
           </span>

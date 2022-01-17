@@ -32,7 +32,7 @@ async function getSymbols(value) {
     const symbolSnapshot = query(
       symbolCol,
       orderBy("name", "asc"),
-      limit(value ? 300 : 20)
+      limit(value ? 300 : 50)
     );
 
     const querySnapshot = await getDocs(symbolSnapshot);
